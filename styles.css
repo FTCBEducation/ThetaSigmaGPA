@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+nav button {
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+section {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
