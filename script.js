@@ -16,7 +16,7 @@ const auth = firebase.auth();
 // Global Variables
 let currentUser = null;
 
-// Authentication
+// Authentication State Listener
 auth.onAuthStateChanged((user) => {
     if (user) {
         currentUser = user;
@@ -38,7 +38,7 @@ document.getElementById("login-button").addEventListener("click", async () => {
     try {
         await auth.signInWithEmailAndPassword(email, password);
     } catch (error) {
-        alert(error.message);
+        alert("Login Failed: " + error.message);
     }
 });
 
@@ -50,7 +50,7 @@ document.getElementById("logout-button").addEventListener("click", () => {
 // Load Data from Firestore
 async function loadData() {
     const snapshot = await db.collection("members").get();
-    const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     renderTable(data);
 }
 
