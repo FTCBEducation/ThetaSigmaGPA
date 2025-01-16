@@ -1,20 +1,10 @@
 /* General Styling */
 body {
     font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(45deg, #002D72 50%, #FFD700 50%);
-    background-size: 200% 200%;
+    background-color: #f5faff;
     color: #212529;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Header Styling */
-h1, h3 {
-    color: #FFD700;
-}
-
-/* Card Styling */
 .card {
     border: none;
     border-radius: 10px;
@@ -22,7 +12,6 @@ h1, h3 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Button Styling */
 button {
     transition: background-color 0.3s, color 0.3s;
 }
@@ -51,7 +40,6 @@ button.btn-warning:hover {
 table {
     background-color: white;
     border-radius: 5px;
-    overflow: hidden;
 }
 
 thead.bg-primary {
@@ -60,35 +48,6 @@ thead.bg-primary {
 }
 
 tbody tr:hover {
-    background-color: #f9f9f9;
-}
-
-/* Dark Mode Styling */
-.dark-mode {
-    background-color: #001A4B;
-    color: white;
-}
-
-.dark-mode table {
-    background-color: #002D72;
-}
-
-.dark-mode thead {
-    background-color: #001A4B;
-}
-
-.dark-mode tbody tr {
-    background-color: #002D72;
-    color: white;
-}
-
-.dark-mode button {
-    background-color: #FFD700;
-    color: black;
-}
-
-.dark-mode input, .dark-mode select {
-    background-color: #FFD700;
-    color: black;
-    border: 1px solid #FFD700;
+    background-color: rgba(0, 45, 114, 0.1);
+    cursor: pointer;
 }
