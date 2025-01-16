@@ -4,100 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ΣX Leaderboard</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Georgia', serif;
-            margin: 0;
-            padding: 0;
-            background-color: #fdf9f3; /* Light parchment background */
-            color: #002147; /* Sigma Chi Blue */
-        }
-
-        header {
-            background-color: #002147; /* Sigma Chi Blue */
-            color: #ffd700; /* Gold */
-            padding: 1.5rem 1rem;
-            text-align: center;
-            border-bottom: 5px solid #ffd700; /* Gold border */
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin: 0;
-            letter-spacing: 2px;
-        }
-
-        header h2 {
-            font-size: 1.5rem;
-            margin: 0.5rem 0 0;
-            letter-spacing: 1px;
-        }
-
-        /* Leaderboard Table */
-        main {
-            padding: 2rem;
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #ffd700; /* Gold */
-            color: #002147; /* Sigma Chi Blue */
-            text-transform: uppercase;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            cursor: pointer; /* Indicate clickable columns */
-        }
-
-        th:hover {
-            background-color: #ffcc00; /* Slightly brighter gold on hover */
-        }
-
-        td {
-            font-size: 1rem;
-            background-color: #ffffff; /* White background */
-            color: #002147; /* Sigma Chi Blue */
-        }
-
-        tr:nth-child(even) td {
-            background-color: #f7f7f7; /* Light gray for alternating rows */
-        }
-
-        tr:hover td {
-            background-color: #ffd700; /* Gold highlight */
-            color: #002147; /* Sigma Chi Blue text */
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 1rem 0;
-            margin-top: 2rem;
-            background-color: #002147; /* Sigma Chi Blue */
-            color: #ffd700; /* Gold */
-            font-size: 1rem;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js"></script>
 </head>
 <body>
     <header>
         <h1>ΣX Theta Sigma Chapter</h1>
-        <h2>Fall 2024 Leaderboard</h2>
+        <h2>Leaderboard</h2>
     </header>
     <main>
         <table id="leaderboard">
@@ -118,63 +33,6 @@
     <footer>
         © 2024 ΣX Theta Sigma Chapter
     </footer>
-    <script>
-        // Complete extracted data from the PDF
-        const leaderboardData = [
-            { name: "David Lucas", position: "Beta Upsilon", major: "Architecture", fallGpa: 3.63, cumulativeGpa: 3.26 },
-            { name: "Austin Walker", position: "Beta Psi", major: "Biology", fallGpa: 3.88, cumulativeGpa: 3.88 },
-            { name: "Christian Bidolli", position: "Beta Chi", major: "FRL", fallGpa: 2.54, cumulativeGpa: 2.97 },
-            { name: "Cade Wheeler", position: "Beta Omega", major: "Mechanical Engineering", fallGpa: 3.87, cumulativeGpa: 3.17 },
-            { name: "Adam Garay", position: "Beta Chi", major: "Industrial Engineering", fallGpa: 4.00, cumulativeGpa: 2.99 },
-            { name: "Kyle Barnes", position: "Beta Upsilon", major: "Electrical Engineering", fallGpa: 3.40, cumulativeGpa: 3.30 },
-            { name: "Evan Tiemann", position: "Beta Chi", major: "Computer Engineering", fallGpa: 0.60, cumulativeGpa: 2.74 },
-            { name: "Logan Sandhu", position: "Beta Chi", major: "FRL", fallGpa: 3.07, cumulativeGpa: 3.15 },
-            { name: "Christian Enkerlin", position: "Beta Psi", major: "Business + Psychology", fallGpa: 3.88, cumulativeGpa: 3.63 },
-            { name: "Joseph Lee", position: "Beta Chi", major: "Electrical Engineering", fallGpa: 2.71, cumulativeGpa: 3.35 }
-            // Add remaining entries here...
-        ];
-
-        // Populate the leaderboard dynamically
-        function populateLeaderboard(data) {
-            const tbody = document.getElementById('leaderboard').querySelector('tbody');
-            tbody.innerHTML = ""; // Clear table before repopulating
-            data.forEach(member => {
-                const row = `
-                    <tr>
-                        <td>${member.name}</td>
-                        <td>${member.position}</td>
-                        <td>${member.major}</td>
-                        <td>${member.fallGpa}</td>
-                        <td>${member.cumulativeGpa}</td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            });
-        }
-
-        // Sort the leaderboard
-        function sortLeaderboard(column, type) {
-            const sortedData = [...leaderboardData].sort((a, b) => {
-                if (type === "string") {
-                    return a[column].localeCompare(b[column]);
-                } else if (type === "number") {
-                    return a[column] - b[column];
-                }
-            });
-            populateLeaderboard(sortedData);
-        }
-
-        // Attach event listeners to column headers
-        document.querySelectorAll("th").forEach(header => {
-            header.addEventListener("click", () => {
-                const column = header.dataset.column;
-                const type = header.dataset.type;
-                sortLeaderboard(column, type);
-            });
-        });
-
-        // Initial population
-        populateLeaderboard(leaderboardData);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
