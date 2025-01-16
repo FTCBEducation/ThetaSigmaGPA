@@ -6,10 +6,14 @@
     <title>Fraternity Attendance Tracker</title>
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Firebase SDKs -->
+    <!-- Firebase Compat Libraries -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-storage-compat.js"></script>
+
+    <!-- QR Code Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <h1>Fraternity Attendance Tracker</h1>
@@ -27,6 +31,8 @@
     <!-- Dashboard -->
     <section id="dashboard" style="display: none;">
         <button id="logout-button">Logout</button>
+        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
         <h2>Dashboard</h2>
         <form id="data-form">
             <label for="name">Name</label>
@@ -44,6 +50,12 @@
             <button type="submit">Add Data</button>
         </form>
 
+        <h3>Leaderboard</h3>
+        <select id="leaderboard-sort" onchange="sortLeaderboard(this.value)">
+            <option value="cumulativeGPA">Cumulative GPA</option>
+            <option value="attendance">Attendance</option>
+            <option value="points">Points</option>
+        </select>
         <table>
             <thead>
                 <tr>
@@ -51,11 +63,21 @@
                     <th>Fall GPA</th>
                     <th>Cumulative GPA</th>
                     <th>Attendance</th>
+                    <th>Points</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="data-table"></tbody>
         </table>
+
+        <h3>Study Resources</h3>
+        <input type="file" id="resource-upload">
+        <button onclick="uploadResource()">Upload Resource</button>
+
+        <h3>QR Code for Event</h3>
+        <input type="text" id="event-id" placeholder="Event ID">
+        <button onclick="generateQRCode()">Generate QR Code</button>
+        <div id="qrcode"></div>
     </section>
 
     <script src="script.js"></script>
