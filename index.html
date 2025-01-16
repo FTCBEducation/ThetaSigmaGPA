@@ -7,37 +7,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Fraternity Attendance Tracker</h1>
-
-    <!-- Navigation Menu -->
-    <nav>
-        <button onclick="showSection('dashboard')">Dashboard</button>
-        <button onclick="showSection('leaderboard')">Leaderboard</button>
-        <button onclick="showSection('profiles')">Member Profiles</button>
-        <button onclick="showSection('events')">Event Management</button>
-        <button onclick="showSection('resources')">Study Resources</button>
-        <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    </nav>
+    <!-- Login Form -->
+    <div id="login-form" style="display: none;">
+        <h2>Login</h2>
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" required>
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" required>
+        <button id="login-button">Login</button>
+    </div>
 
     <!-- Dashboard -->
-    <section id="dashboard">
+    <section id="dashboard" style="display: none;">
+        <button id="logout-button">Logout</button>
         <h2>Dashboard</h2>
         <form id="data-form">
             <label for="name">Name</label>
             <input type="text" id="name" required>
-
+            
             <label for="fall-gpa">Fall 2024 GPA</label>
             <input type="number" id="fall-gpa" step="0.01" required>
-
+            
             <label for="cumulative-gpa">Cumulative GPA</label>
             <input type="number" id="cumulative-gpa" step="0.01" required>
-
+            
             <label for="attendance">Attendance</label>
             <input type="number" id="attendance" required>
-
+            
             <button type="submit">Add Data</button>
         </form>
-
         <table>
             <thead>
                 <tr>
@@ -52,7 +50,7 @@
         </table>
     </section>
 
-    <!-- Leaderboard -->
+    <!-- Other Sections (Leaderboard, etc.) -->
     <section id="leaderboard" style="display: none;">
         <h2>Leaderboard</h2>
         <table>
@@ -69,44 +67,6 @@
         <button onclick="exportLeaderboard()">Export Leaderboard</button>
     </section>
 
-    <!-- Member Profiles -->
-    <section id="profiles" style="display: none;">
-        <h2>Member Profiles</h2>
-        <div id="profile-details"></div>
-    </section>
-
-    <!-- Event Management -->
-    <section id="events" style="display: none;">
-        <h2>Event Management</h2>
-        <button onclick="scheduleEvent()">Schedule Study Session</button>
-        <ul id="event-list"></ul>
-    </section>
-
-    <!-- Study Resources -->
-    <section id="resources" style="display: none;">
-        <h2>Study Resources</h2>
-        <input type="file" id="resource-upload">
-        <ul id="resource-list"></ul>
-    </section>
-
     <script src="script.js"></script>
 </body>
-
-    <!-- Login Form -->
-<div id="login-form" style="display: none;">
-    <h2>Login</h2>
-    <label for="login-email">Email</label>
-    <input type="email" id="login-email" required>
-    <label for="login-password">Password</label>
-    <input type="password" id="login-password" required>
-    <button id="login-button">Login</button>
-</div>
-
-<!-- Dashboard -->
-<section id="dashboard" style="display: none;">
-    <h2>Dashboard</h2>
-    <button id="logout-button">Logout</button>
-    <!-- Existing Dashboard Content -->
-</section>
-
 </html>
