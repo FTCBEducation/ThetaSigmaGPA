@@ -13,18 +13,13 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-// Global Variables
-let currentUser = null;
-
 // Authentication State Listener
 auth.onAuthStateChanged((user) => {
     if (user) {
-        currentUser = user;
         document.getElementById("login-form").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
         loadData();
     } else {
-        currentUser = null;
         document.getElementById("login-form").style.display = "block";
         document.getElementById("dashboard").style.display = "none";
     }
