@@ -17,15 +17,15 @@ const db = firebase.firestore();
 auth.onAuthStateChanged((user) => {
     if (user) {
         document.getElementById("login-form").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
+        document.getElementById("leaderboard-section").style.display = "block";
         document.getElementById("logout-button").style.display = "block";
         // Show GPA columns for logged-in users
         const gpaColumns = document.querySelectorAll(".gpa-column");
         gpaColumns.forEach(col => col.style.display = "table-cell");
         loadData(true); // Load full data for logged-in users
     } else {
-        document.getElementById("login-form").style.display = "none";
-        document.getElementById("dashboard").style.display = "block"; // Leaderboard always visible
+        document.getElementById("login-form").style.display = "block";
+        document.getElementById("leaderboard-section").style.display = "block";
         document.getElementById("logout-button").style.display = "none";
         // Hide GPA columns for public users
         const gpaColumns = document.querySelectorAll(".gpa-column");
@@ -34,7 +34,7 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-// Login
+// Login Functionality
 document.getElementById("login-button").addEventListener("click", async () => {
     const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value.trim();
@@ -47,7 +47,7 @@ document.getElementById("login-button").addEventListener("click", async () => {
     }
 });
 
-// Logout
+// Logout Functionality
 document.getElementById("logout-button").addEventListener("click", () => {
     auth.signOut();
     alert("Logged out successfully!");
@@ -87,7 +87,7 @@ function renderTable(data, isLoggedIn) {
 
 // Sort Leaderboard
 function sortLeaderboard(criteria) {
-    // Sorting logic will depend on your implementation
+    // Sorting logic goes here
 }
 
 // Dark Mode Toggle
