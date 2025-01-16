@@ -1,35 +1,43 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.dark-mode {
-    background-color: black;
+#login-form {
+    margin-bottom: 20px;
+}
+
+#login-form input, #login-form button {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 300px;
+}
+
+button {
+    background-color: #4CAF50;
     color: white;
-}
-
-nav button {
-    margin: 5px;
-    padding: 10px 20px;
+    border: none;
+    padding: 10px;
     cursor: pointer;
 }
 
-section {
-    margin-top: 20px;
+button:hover {
+    background-color: #45a049;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 
-th, td {
+table th, table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
 }
 
-th {
+table th {
     background-color: #f4f4f4;
 }
