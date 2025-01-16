@@ -1,45 +1,50 @@
 /* General Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5faff;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(45deg, #002D72 50%, #FFD700 50%);
+    background-size: 200% 200%;
     color: #212529;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+/* Header Styling */
 h1, h3 {
-    color: #007bff;
+    color: #FFD700;
 }
 
+/* Card Styling */
 .card {
     border: none;
     border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card .form-label {
-    color: #212529;
-}
-
+/* Button Styling */
 button {
     transition: background-color 0.3s, color 0.3s;
 }
 
 button.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #002D72;
+    border-color: #002D72;
     color: white;
 }
 
 button.btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #001A4B;
 }
 
 button.btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
+    background-color: #FFD700;
+    border-color: #FFD700;
     color: black;
 }
 
 button.btn-warning:hover {
-    background-color: #e0a800;
+    background-color: #E6C200;
 }
 
 /* Table Styling */
@@ -50,29 +55,40 @@ table {
 }
 
 thead.bg-primary {
-    background-color: #007bff !important;
+    background-color: #002D72 !important;
     color: white !important;
 }
 
 tbody tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f9f9f9;
 }
 
 /* Dark Mode Styling */
 .dark-mode {
-    background-color: #001f3f;
+    background-color: #001A4B;
     color: white;
 }
 
 .dark-mode table {
-    background-color: #003366;
+    background-color: #002D72;
 }
 
 .dark-mode thead {
-    background-color: #00264d;
+    background-color: #001A4B;
 }
 
 .dark-mode tbody tr {
-    background-color: #00264d;
+    background-color: #002D72;
     color: white;
+}
+
+.dark-mode button {
+    background-color: #FFD700;
+    color: black;
+}
+
+.dark-mode input, .dark-mode select {
+    background-color: #FFD700;
+    color: black;
+    border: 1px solid #FFD700;
 }
