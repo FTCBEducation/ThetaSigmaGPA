@@ -1,11 +1,11 @@
 // Firebase Configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBTj1TNRV8zCPhMJj8aUjfq175bGvNPIvs",
+  authDomain: "ftcb-d1bfd.firebaseapp.com",
+  projectId: "ftcb-d1bfd",
+  storageBucket: "ftcb-d1bfd.firebasestorage.app",
+  messagingSenderId: "53279722724",
+  appId: "1:53279722724:web:73c876d28c0e4a83e570f1"
 };
 
 // Initialize Firebase
@@ -15,26 +15,24 @@ const db = firebase.firestore();
 
 // Handle Authentication State Changes
 auth.onAuthStateChanged((user) => {
+    const loginForm = document.getElementById("login-form");
+    const logoutButton = document.getElementById("logout-button");
+    const gpaColumns = document.querySelectorAll(".gpa-column");
+
     if (user) {
-        document.getElementById("login-form").style.display = "none";
-        document.getElementById("leaderboard-section").style.display = "block";
-        document.getElementById("logout-button").style.display = "block";
-        // Show GPA columns for logged-in users
-        const gpaColumns = document.querySelectorAll(".gpa-column");
-        gpaColumns.forEach(col => col.style.display = "table-cell");
-        loadData(true); // Load full data for logged-in users
+        loginForm.style.display = "none";
+        logoutButton.style.display = "block";
+        gpaColumns.forEach(col => col.style.display = "table-cell"); // Show GPA columns for logged-in users
+        loadData(true);
     } else {
-        document.getElementById("login-form").style.display = "block";
-        document.getElementById("leaderboard-section").style.display = "block";
-        document.getElementById("logout-button").style.display = "none";
-        // Hide GPA columns for public users
-        const gpaColumns = document.querySelectorAll(".gpa-column");
-        gpaColumns.forEach(col => col.style.display = "none");
-        loadData(false); // Load partial data for public users
+        loginForm.style.display = "block";
+        logoutButton.style.display = "none";
+        gpaColumns.forEach(col => col.style.display = "none"); // Hide GPA columns for public users
+        loadData(false);
     }
 });
 
-// Login Functionality
+// Login
 document.getElementById("login-button").addEventListener("click", async () => {
     const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value.trim();
@@ -47,7 +45,7 @@ document.getElementById("login-button").addEventListener("click", async () => {
     }
 });
 
-// Logout Functionality
+// Logout
 document.getElementById("logout-button").addEventListener("click", () => {
     auth.signOut();
     alert("Logged out successfully!");
@@ -77,8 +75,8 @@ function renderTable(data, isLoggedIn) {
             <td>${points}</td>
             ${
                 isLoggedIn
-                    ? `<td>${row.fallGPA}</td><td>${row.cumulativeGPA}</td>`
-                    : `<td class="gpa-column" style="display:none;"></td><td class="gpa-column" style="display:none;"></td>`
+                    ? `<td>${row.fallGPA}</td><td>${row.cumulativeGPA}</td>` // Show GPA for logged-in users
+                    : `<td class="gpa-column" style="display:none;"></td><td class="gpa-column" style="display:none;"></td>` // Hide GPA for non-logged-in users
             }
         `;
         dataTable.appendChild(tr);
@@ -87,7 +85,7 @@ function renderTable(data, isLoggedIn) {
 
 // Sort Leaderboard
 function sortLeaderboard(criteria) {
-    // Sorting logic goes here
+    // Add sorting logic here
 }
 
 // Dark Mode Toggle
