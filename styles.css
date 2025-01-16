@@ -1,15 +1,16 @@
 /* General Styling */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5faff;
+    background-color: #f8f9fa;
     color: #212529;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .card {
-    border: none;
-    border-radius: 10px;
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 button {
@@ -17,37 +18,62 @@ button {
 }
 
 button.btn-primary {
-    background-color: #002D72;
-    border-color: #002D72;
+    background-color: #0056b3;
+    border-color: #0056b3;
     color: white;
 }
 
 button.btn-primary:hover {
-    background-color: #001A4B;
+    background-color: #003d80;
 }
 
 button.btn-warning {
-    background-color: #FFD700;
-    border-color: #FFD700;
+    background-color: #ffc107;
+    border-color: #ffc107;
     color: black;
 }
 
 button.btn-warning:hover {
-    background-color: #E6C200;
+    background-color: #e6a800;
 }
 
 /* Table Styling */
 table {
     background-color: white;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 thead.bg-primary {
-    background-color: #002D72 !important;
+    background-color: #0056b3 !important;
     color: white !important;
 }
 
 tbody tr:hover {
     background-color: rgba(0, 45, 114, 0.1);
     cursor: pointer;
+}
+
+/* Dark Mode */
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.dark-mode table {
+    background-color: black;
+}
+
+.dark-mode thead {
+    background-color: #333;
+}
+
+.dark-mode tbody tr {
+    background-color: #444;
+    color: white;
+}
+
+.dark-mode button {
+    background-color: white;
+    color: black;
 }
