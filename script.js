@@ -8,98 +8,85 @@ const firebaseConfig = {
   appId: "1:53279722724:web:73c876d28c0e4a83e570f1"
 };
 
+
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.20.0/firebase-firestore.js";
 
-// Handle Authentication State
-auth.onAuthStateChanged(async (user) => {
-    const loginForm = document.getElementById("login-form");
-    const logoutButton = document.getElementById("logout-button");
-    const gpaColumns = document.querySelectorAll(".gpa-column");
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-    if (user) {
-        loginForm.style.display = "none";
-        logoutButton.style.display = "block";
-        const role = await getUserRole(user.uid);
+// Populate the leaderboard dynamically
+function populateLeaderboard(data) {
+    const tbody = document.getElementById('leaderboard').querySelector('tbody');
+    tbody.innerHTML = ""; // Clear table before repopulating
+    data.forEach(member => {
+        const row = `
+            <tr>
+                <td>${member.name}</td>
+                <td>${member.position}</td>
+                <td>${member.major}</td>
+                <td>${member.fallGpa}</td>
+                <td>${member.cumulativeGpa}</td>
+            </tr>
+        `;
+        tbody.innerHTML += row;
+    });
+}
 
-        if (role === "admin" || role === "member") {
-            gpaColumns.forEach(col => col.style.display = "table-cell");
-        } else {
-            gpaColumns.forEach(col => col.style.display = "none");
+// Fetch data from Firebase Firestore
+async function fetchLeaderboard() {
+    const querySnapshot = await getDocs(collection(db, "leaderboard"));
+    const data = [
+        { name: "David Lucas", position: "Beta Upsilon", major: "Architecture", fallGpa: 3.63, cumulativeGpa: 3.26 },
+        { name: "Austin Walker", position: "Beta Psi", major: "Biology", fallGpa: 3.88, cumulativeGpa: 3.88 },
+        { name: "Christian Bidolli", position: "Beta Chi", major: "FRL", fallGpa: 2.54, cumulativeGpa: 2.97 },
+        { name: "Cade Wheeler", position: "Beta Omega", major: "Mechanical Engineering", fallGpa: 3.87, cumulativeGpa: 3.17 },
+        { name: "Adam Garay", position: "Beta Chi", major: "Industrial Engineering", fallGpa: 4.00, cumulativeGpa: 2.99 },
+        { name: "Kyle Barnes", position: "Beta Upsilon", major: "Electrical Engineering", fallGpa: 3.40, cumulativeGpa: 3.30 },
+        { name: "Evan Tiemann", position: "Beta Chi", major: "Computer Engineering", fallGpa: 0.60, cumulativeGpa: 2.74 },
+        { name: "Logan Sandhu", position: "Beta Chi", major: "FRL", fallGpa: 3.07, cumulativeGpa: 3.15 },
+        { name: "Christian Enkerlin", position: "Beta Psi", major: "Business + Psychology", fallGpa: 3.88, cumulativeGpa: 3.63 },
+        { name: "Joseph Lee", position: "Beta Chi", major: "Electrical Engineering", fallGpa: 2.71, cumulativeGpa: 3.35 },
+        { name: "Ut Batra", position: "Beta Omega", major: "Electromechanical Engineering", fallGpa: 3.22, cumulativeGpa: 2.95 },
+        { name: "Ethan Quezada", position: "Beta Omega", major: "Business Administration", fallGpa: 3.63, cumulativeGpa: 3.11 },
+        { name: "Diego Carrillo", position: "Gamma Alpha", major: "Construction Engineering", fallGpa: 2.44, cumulativeGpa: 3.10 },
+        { name: "Matthew Aguilara", position: "Gamma Alpha", major: "Kinesiology", fallGpa: 2.22, cumulativeGpa: 3.31 },
+        { name: "Adam Carrera", position: "Gamma Gamma", major: "Construction Engineering", fallGpa: 3.29, cumulativeGpa: 3.29 },
+        { name: "Alexander Halikidis", position: "Gamma Delta", major: "Construction Engineering", fallGpa: 2.47, cumulativeGpa: 3.03 }
+        // All other data should go here...
+    ];
+
+    populateLeaderboard(data);
+}
+
+// Sort the leaderboard
+function sortLeaderboard(column, type) {
+    const tbody = document.getElementById("leaderboard").querySelector("tbody");
+    const rows = Array.from(tbody.querySelectorAll("tr"));
+    const sortedRows = rows.sort((a, b) => {
+        const aValue = a.querySelector(`td:nth-child(${column})`).innerText;
+        const bValue = b.querySelector(`td:nth-child(${column})`).innerText;
+
+        if (type === "string") {
+            return aValue.localeCompare(bValue);
+        } else if (type === "number") {
+            return parseFloat(aValue) - parseFloat(bValue);
         }
+    });
 
-        loadLeaderboard(role);
-    } else {
-        loginForm.style.display = "flex";
-        logoutButton.style.display = "none";
-        gpaColumns.forEach(col => col.style.display = "none");
-        loadLeaderboard("public");
-    }
-});
-
-// Fetch User Role
-async function getUserRole(uid) {
-    const userDoc = await db.collection("users").doc(uid).get();
-    return userDoc.exists ? userDoc.data().role : "public";
+    tbody.innerHTML = "";
+    sortedRows.forEach(row => tbody.appendChild(row));
 }
 
-// Load Leaderboard
-async function loadLeaderboard(role) {
-    try {
-        const snapshot = await db.collection("members").get();
-        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        renderLeaderboard(data, role);
-    } catch (error) {
-        console.error("Error loading leaderboard:", error);
-    }
-}
-
-// Render Leaderboard
-function renderLeaderboard(data, role) {
-    const dataTable = document.getElementById("data-table");
-    dataTable.innerHTML = "";
-    let rank = 1;
-    data
-        .sort((a, b) => b.points - a.points) // Sort by points
-        .forEach(row => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td>${rank++}</td>
-                <td>${row.name}</td>
-                <td>${row.attendance}</td>
-                <td>${row.points}</td>
-                ${
-                    role === "admin" || role === "member"
-                        ? `<td>${row.fallGPA}</td><td>${row.cumulativeGPA}</td>`
-                        : `<td class="gpa-column" style="display:none;"></td><td class="gpa-column" style="display:none;"></td>`
-                }
-            `;
-            dataTable.appendChild(tr);
-        });
-}
-
-// Login
-document.getElementById("login-button").addEventListener("click", async () => {
-    const email = document.getElementById("login-email").value.trim();
-    const password = document.getElementById("login-password").value.trim();
-
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-        alert("Login successful!");
-    } catch (error) {
-        alert("Login failed: " + error.message);
-    }
+// Attach event listeners to column headers
+document.querySelectorAll("th").forEach(header => {
+    header.addEventListener("click", () => {
+        const column = header.dataset.column;
+        const type = header.dataset.type;
+        sortLeaderboard(column, type);
+    });
 });
 
-// Logout
-document.getElementById("logout-button").addEventListener("click", () => {
-    auth.signOut();
-    alert("Logged out successfully!");
-});
-
-// Dark Mode Toggle
-document.getElementById("dark-mode-toggle").addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-});
+// Fetch leaderboard data on page load
+fetchLeaderboard();
