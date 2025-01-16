@@ -48,11 +48,24 @@ document.getElementById("logout-button").addEventListener("click", () => {
 
 // Dark Mode Toggle
 document.getElementById("dark-mode-toggle").addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
+    const body = document.body;
+    body.classList.toggle("dark-mode");
 
-    // Ensure all dynamic elements follow the dark mode
     const tables = document.querySelectorAll("table");
-    tables.forEach((table) => table.classList.toggle("table-dark"));
+    tables.forEach((table) => {
+        table.classList.toggle("table-dark");
+    });
+
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach((btn) => {
+        btn.classList.toggle("btn-dark");
+        btn.classList.toggle("btn-light");
+    });
+
+    const forms = document.querySelectorAll("input, select");
+    forms.forEach((input) => {
+        input.classList.toggle("form-dark");
+    });
 });
 
 // Load Data from Firestore
@@ -65,7 +78,7 @@ async function loadData() {
 // Render Data Table
 function renderTable() {
     const dataTable = document.getElementById("data-table");
-    dataTable.innerHTML = ""; // Clear previous rows
+    dataTable.innerHTML = "";
     data.forEach((row) => {
         const points = calculatePoints(row);
         const tr = document.createElement("tr");
