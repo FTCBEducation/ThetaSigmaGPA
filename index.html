@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fraternity Attendance Tracker</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js"></script>
 </head>
 <body>
+    <h1>Fraternity Attendance Tracker</h1>
+
     <!-- Login Form -->
-    <div id="login-form" style="display: none;">
+    <div id="login-form">
         <h2>Login</h2>
         <label for="login-email">Email</label>
         <input type="email" id="login-email" required>
@@ -36,6 +41,7 @@
             
             <button type="submit">Add Data</button>
         </form>
+
         <table>
             <thead>
                 <tr>
@@ -48,23 +54,6 @@
             </thead>
             <tbody id="data-table"></tbody>
         </table>
-    </section>
-
-    <!-- Other Sections (Leaderboard, etc.) -->
-    <section id="leaderboard" style="display: none;">
-        <h2>Leaderboard</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>GPA</th>
-                    <th>Attendance</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard-table"></tbody>
-        </table>
-        <button onclick="exportLeaderboard()">Export Leaderboard</button>
     </section>
 
     <script src="script.js"></script>
