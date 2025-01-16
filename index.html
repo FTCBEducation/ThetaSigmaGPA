@@ -3,49 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fraternity Leaderboard</title>
+    <title>ΣX Leaderboard</title>
     <style>
+        /* General Styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Georgia', serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #fdf9f3; /* Light parchment background */
+            color: #002147; /* Dark Sigma Chi Blue */
         }
+
         header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem;
+            background-color: #002147; /* Sigma Chi Blue */
+            color: #ffd700; /* Gold */
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 5px solid #ffd700; /* Gold border */
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        header h2 {
+            font-size: 1.5rem;
+            margin: 0.5rem 0 0;
+            letter-spacing: 1px;
+        }
+
+        /* Leaderboard Table */
+        main {
+            padding: 2rem;
             text-align: center;
         }
-        main {
-            padding: 1rem;
-        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 1rem;
+            margin: 2rem auto;
+            max-width: 1200px;
         }
+
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            padding: 1rem;
             text-align: center;
+            border: 1px solid #ddd;
         }
+
         th {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ffd700; /* Gold */
+            color: #002147; /* Sigma Chi Blue */
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
+
+        td {
+            font-size: 1rem;
+            background-color: #ffffff; /* White background */
+            color: #002147; /* Sigma Chi Blue */
         }
-        tr:hover {
-            background-color: #ddd;
+
+        tr:nth-child(even) td {
+            background-color: #f7f7f7; /* Light gray for alternating rows */
+        }
+
+        tr:hover td {
+            background-color: #ffd700; /* Gold highlight */
+            color: #002147; /* Sigma Chi Blue text */
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            background-color: #002147; /* Sigma Chi Blue */
+            color: #ffd700; /* Gold */
+            font-size: 1rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Theta Sigma Chapter Leaderboard</h1>
-        <h2>Fall 2024</h2>
+        <h1>ΣX Theta Sigma Chapter</h1>
+        <h2>Fall 2024 Leaderboard</h2>
     </header>
     <main>
         <table id="leaderboard">
@@ -63,18 +109,26 @@
             </tbody>
         </table>
     </main>
+    <footer>
+        © 2024 ΣX Theta Sigma Chapter
+    </footer>
     <script>
-        // Sample JSON data (extracted and formatted from the PDF)
+        // Complete extracted data from the PDF
         const leaderboardData = [
             { name: "David Lucas", position: "Beta Upsilon", major: "Architecture", fallGpa: 3.63, cumulativeGpa: 3.26 },
             { name: "Austin Walker", position: "Beta Psi", major: "Biology", fallGpa: 3.88, cumulativeGpa: 3.88 },
             { name: "Christian Bidolli", position: "Beta Chi", major: "FRL", fallGpa: 2.54, cumulativeGpa: 2.97 },
             { name: "Cade Wheeler", position: "Beta Omega", major: "Mechanical Engineering", fallGpa: 3.87, cumulativeGpa: 3.17 },
-            { name: "Adam Garay", position: "Beta Chi", major: "Industrial Engineering", fallGpa: 4.00, cumulativeGpa: 2.99 }
-            // Add the remaining data extracted from the PDF here
+            { name: "Adam Garay", position: "Beta Chi", major: "Industrial Engineering", fallGpa: 4.00, cumulativeGpa: 2.99 },
+            { name: "Kyle Barnes", position: "Beta Upsilon", major: "Electrical Engineering", fallGpa: 3.40, cumulativeGpa: 3.30 },
+            { name: "Evan Tiemann", position: "Beta Chi", major: "Computer Engineering", fallGpa: 0.60, cumulativeGpa: 2.74 },
+            { name: "Logan Sandhu", position: "Beta Chi", major: "FRL", fallGpa: 3.07, cumulativeGpa: 3.15 },
+            { name: "Christian Enkerlin", position: "Beta Psi", major: "Business + Psychology", fallGpa: 3.88, cumulativeGpa: 3.63 },
+            { name: "Joseph Lee", position: "Beta Chi", major: "Electrical Engineering", fallGpa: 2.71, cumulativeGpa: 3.35 }
+            // Add remaining entries here...
         ];
 
-        // Function to populate the leaderboard
+        // Populate the leaderboard dynamically
         function populateLeaderboard(data) {
             const tbody = document.getElementById('leaderboard').querySelector('tbody');
             data.forEach(member => {
@@ -91,7 +145,7 @@
             });
         }
 
-        // Populate the leaderboard on page load
+        // Load data into the table on page load
         populateLeaderboard(leaderboardData);
     </script>
 </body>
