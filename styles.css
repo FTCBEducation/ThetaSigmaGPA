@@ -1,20 +1,26 @@
 /* General Styling */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
     color: #212529;
     transition: background-color 0.3s, color 0.3s;
 }
 
+/* Card Styling */
 .card {
-    background-color: white;
     border: none;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Button Styling */
 button {
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 button.btn-primary {
@@ -24,56 +30,88 @@ button.btn-primary {
 }
 
 button.btn-primary:hover {
-    background-color: #003d80;
+    background-color: #004080;
 }
 
-button.btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: black;
+button.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
 }
 
-button.btn-warning:hover {
-    background-color: #e6a800;
+button.btn-danger:hover {
+    background-color: #b02a37;
+}
+
+button.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+button.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+button.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+button.btn-success:hover {
+    background-color: #218838;
 }
 
 /* Table Styling */
 table {
     background-color: white;
-    border-radius: 5px;
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 thead.bg-primary {
-    background-color: #0056b3 !important;
-    color: white !important;
+    background-color: #0056b3;
+    color: white;
 }
 
 tbody tr:hover {
-    background-color: rgba(0, 45, 114, 0.1);
+    background-color: rgba(0, 86, 179, 0.1);
     cursor: pointer;
 }
 
-/* Dark Mode */
+/* Dark Mode Styling */
 .dark-mode {
-    background-color: black;
+    background-color: #212529;
+    color: white;
+}
+
+.dark-mode .card {
+    background-color: #343a40;
     color: white;
 }
 
 .dark-mode table {
-    background-color: black;
+    background-color: #343a40;
 }
 
 .dark-mode thead {
-    background-color: #333;
+    background-color: #495057;
 }
 
 .dark-mode tbody tr {
-    background-color: #444;
+    background-color: #343a40;
     color: white;
 }
 
 .dark-mode button {
-    background-color: white;
     color: black;
+    background-color: white;
+    border-color: white;
+}
+
+.dark-mode button:hover {
+    color: black;
+    background-color: #e0e0e0;
 }
