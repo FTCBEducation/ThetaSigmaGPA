@@ -49,6 +49,10 @@ document.getElementById("logout-button").addEventListener("click", () => {
 // Dark Mode Toggle
 document.getElementById("dark-mode-toggle").addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
+
+    // Ensure all dynamic elements follow the dark mode
+    const tables = document.querySelectorAll("table");
+    tables.forEach((table) => table.classList.toggle("table-dark"));
 });
 
 // Load Data from Firestore
@@ -61,7 +65,7 @@ async function loadData() {
 // Render Data Table
 function renderTable() {
     const dataTable = document.getElementById("data-table");
-    dataTable.innerHTML = "";
+    dataTable.innerHTML = ""; // Clear previous rows
     data.forEach((row) => {
         const points = calculatePoints(row);
         const tr = document.createElement("tr");
@@ -72,7 +76,7 @@ function renderTable() {
             <td>${row.attendance}</td>
             <td>${points}</td>
             <td>
-                <button onclick="deleteData('${row.id}')">Delete</button>
+                <button onclick="deleteData('${row.id}')" class="btn btn-danger btn-sm">Delete</button>
             </td>
         `;
         dataTable.appendChild(tr);
