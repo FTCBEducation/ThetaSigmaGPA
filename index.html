@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #fdf9f3; /* Light parchment background */
-            color: #002147; /* Dark Sigma Chi Blue */
+            color: #002147; /* Sigma Chi Blue */
         }
 
         header {
@@ -44,8 +44,9 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 2rem auto;
+            margin-top: 2rem;
             max-width: 1200px;
+            margin: 0 auto;
         }
 
         th, td {
@@ -60,6 +61,11 @@
             text-transform: uppercase;
             font-size: 1rem;
             letter-spacing: 1px;
+            cursor: pointer; /* Indicate clickable columns */
+        }
+
+        th:hover {
+            background-color: #ffcc00; /* Slightly brighter gold on hover */
         }
 
         td {
@@ -97,11 +103,11 @@
         <table id="leaderboard">
             <thead>
                 <tr>
-                    <th>Member</th>
-                    <th>Position</th>
-                    <th>Major</th>
-                    <th>Fall GPA</th>
-                    <th>Cumulative GPA</th>
+                    <th data-column="name" data-type="string">Member</th>
+                    <th data-column="position" data-type="string">Position</th>
+                    <th data-column="major" data-type="string">Major</th>
+                    <th data-column="fallGpa" data-type="number">Fall GPA</th>
+                    <th data-column="cumulativeGpa" data-type="number">Cumulative GPA</th>
                 </tr>
             </thead>
             <tbody>
@@ -131,6 +137,7 @@
         // Populate the leaderboard dynamically
         function populateLeaderboard(data) {
             const tbody = document.getElementById('leaderboard').querySelector('tbody');
+            tbody.innerHTML = ""; // Clear table before repopulating
             data.forEach(member => {
                 const row = `
                     <tr>
@@ -145,7 +152,28 @@
             });
         }
 
-        // Load data into the table on page load
+        // Sort the leaderboard
+        function sortLeaderboard(column, type) {
+            const sortedData = [...leaderboardData].sort((a, b) => {
+                if (type === "string") {
+                    return a[column].localeCompare(b[column]);
+                } else if (type === "number") {
+                    return a[column] - b[column];
+                }
+            });
+            populateLeaderboard(sortedData);
+        }
+
+        // Attach event listeners to column headers
+        document.querySelectorAll("th").forEach(header => {
+            header.addEventListener("click", () => {
+                const column = header.dataset.column;
+                const type = header.dataset.type;
+                sortLeaderboard(column, type);
+            });
+        });
+
+        // Initial population
         populateLeaderboard(leaderboardData);
     </script>
 </body>
