@@ -3,73 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Firebase Libraries -->
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <title>Fraternity Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 1rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
-    <div class="container my-5">
-        <!-- Header -->
-        <header class="text-center mb-4">
-            <h1 class="fw-bold text-primary">Leaderboard</h1>
-            <p class="text-muted">Track rankings, attendance, and points.</p>
-        </header>
+    <header>
+        <h1>Theta Sigma Chapter Leaderboard</h1>
+        <h2>Fall 2024</h2>
+    </header>
+    <main>
+        <table id="leaderboard">
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Position</th>
+                    <th>Major</th>
+                    <th>Fall GPA</th>
+                    <th>Cumulative GPA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </main>
+    <script>
+        // Sample JSON data (extracted and formatted from the PDF)
+        const leaderboardData = [
+            { name: "David Lucas", position: "Beta Upsilon", major: "Architecture", fallGpa: 3.63, cumulativeGpa: 3.26 },
+            { name: "Austin Walker", position: "Beta Psi", major: "Biology", fallGpa: 3.88, cumulativeGpa: 3.88 },
+            { name: "Christian Bidolli", position: "Beta Chi", major: "FRL", fallGpa: 2.54, cumulativeGpa: 2.97 },
+            { name: "Cade Wheeler", position: "Beta Omega", major: "Mechanical Engineering", fallGpa: 3.87, cumulativeGpa: 3.17 },
+            { name: "Adam Garay", position: "Beta Chi", major: "Industrial Engineering", fallGpa: 4.00, cumulativeGpa: 2.99 }
+            // Add the remaining data extracted from the PDF here
+        ];
 
-        <!-- Login Form -->
-        <div id="login-form" class="d-flex justify-content-center mb-4" style="display: none;">
-            <div class="card p-4 shadow-lg" style="max-width: 400px;">
-                <h3 class="fw-bold text-primary text-center">Login</h3>
-                <form>
-                    <div class="mb-3">
-                        <label for="login-email" class="form-label">Email</label>
-                        <input type="email" id="login-email" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="login-password" class="form-label">Password</label>
-                        <input type="password" id="login-password" class="form-control" required>
-                    </div>
-                    <button id="login-button" type="button" class="btn btn-primary w-100">Login</button>
-                </form>
-            </div>
-        </div>
+        // Function to populate the leaderboard
+        function populateLeaderboard(data) {
+            const tbody = document.getElementById('leaderboard').querySelector('tbody');
+            data.forEach(member => {
+                const row = `
+                    <tr>
+                        <td>${member.name}</td>
+                        <td>${member.position}</td>
+                        <td>${member.major}</td>
+                        <td>${member.fallGpa}</td>
+                        <td>${member.cumulativeGpa}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
 
-        <!-- Leaderboard Section -->
-        <div id="leaderboard-section">
-            <!-- Action Buttons -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <button id="logout-button" class="btn btn-danger" style="display: none;">Logout</button>
-                <button id="dark-mode-toggle" class="btn btn-secondary">Toggle Dark Mode</button>
-            </div>
-
-            <!-- Leaderboard Table -->
-            <div class="table-responsive">
-                <table class="table table-hover shadow-sm">
-                    <thead class="bg-primary text-white">
-                        <tr>
-                            <th>Rank</th>
-                            <th>Name</th>
-                            <th>Attendance</th>
-                            <th>Points</th>
-                            <th class="gpa-column" style="display: none;">Fall GPA</th>
-                            <th class="gpa-column" style="display: none;">Cumulative GPA</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-table"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+        // Populate the leaderboard on page load
+        populateLeaderboard(leaderboardData);
+    </script>
 </body>
 </html>
