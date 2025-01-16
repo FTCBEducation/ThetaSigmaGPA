@@ -46,6 +46,11 @@ document.getElementById("logout-button").addEventListener("click", () => {
     auth.signOut();
 });
 
+// Dark Mode Toggle
+document.getElementById("dark-mode-toggle").addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+});
+
 // Load Data from Firestore
 async function loadData() {
     const snapshot = await db.collection("members").get();
@@ -67,7 +72,6 @@ function renderTable() {
             <td>${row.attendance}</td>
             <td>${points}</td>
             <td>
-                <button onclick="showProfile('${row.id}')">Profile</button>
                 <button onclick="deleteData('${row.id}')">Delete</button>
             </td>
         `;
@@ -94,12 +98,6 @@ async function deleteData(id) {
     loadData();
 }
 
-// Show Member Profile
-function showProfile(id) {
-    const member = data.find((item) => item.id === id);
-    alert(`Name: ${member.name}\nFall GPA: ${member.fallGPA}\nCumulative GPA: ${member.cumulativeGPA}\nAttendance: ${member.attendance}`);
-}
-
 // Calculate Points
 function calculatePoints(member) {
     return member.attendance * 10 + member.cumulativeGPA * 50;
@@ -111,11 +109,6 @@ function sortLeaderboard(criteria) {
     renderTable();
 }
 
-// Dark Mode
-function toggleDarkMode() {
-    document.body.classList.toggle("dark-mode");
-}
-
 // Upload Study Resource
 async function uploadResource() {
     const file = document.getElementById("resource-upload").files[0];
@@ -123,15 +116,4 @@ async function uploadResource() {
     const storageRef = storage.ref(`resources/${file.name}`);
     await storageRef.put(file);
     alert("File uploaded successfully!");
-}
-
-// Generate QR Code
-function generateQRCode() {
-    const eventId = document.getElementById("event-id").value;
-    if (!eventId) return alert("Enter an Event ID!");
-    new QRCode(document.getElementById("qrcode"), {
-        text: `https://yourwebsite.com/checkin?event=${eventId}`,
-        width: 128,
-        height: 128
-    });
 }
